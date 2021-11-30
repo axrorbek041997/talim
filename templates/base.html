@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+{% load static %}
+{% load custom_filters %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+          content="professional ta’lim, metodik ta’minot, elektron platforma, axborot-ta’lim portali, о‘quv-meyoriy hujjatlar, о‘quv materiallar, о‘qitish materiallari tо‘plami"/>
+    <title>Metodik ta’minlash platformasi</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}"/>
+
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chiqish.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.1-web/css/all.css' %}">
+    {% endblock %}
+</head>
+<body>
+
+<!-- HEADER -->
+
+<section class="header">
+    <div class="container">
+        <div class="box">
+            <div class="search">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M9.67624 1.66666C5.25265 1.66666 1.66663 5.17348 1.66663 9.49937C1.66663 13.8253 5.25265 17.3321 9.67624 17.3321C11.5682 17.3321 13.3069 16.6906 14.6774 15.6179L17.2808 18.1572L17.3501 18.2155C17.5918 18.3904 17.9345 18.3705 18.1532 18.1561C18.3938 17.9202 18.3933 17.5383 18.1521 17.303L15.5793 14.7936C16.8874 13.3995 17.6859 11.5406 17.6859 9.49937C17.6859 5.17348 14.0998 1.66666 9.67624 1.66666ZM9.67625 2.87311C13.4185 2.87311 16.4522 5.83979 16.4522 9.49937C16.4522 13.159 13.4185 16.1256 9.67625 16.1256C5.93401 16.1256 2.90033 13.159 2.90033 9.49937C2.90033 5.83979 5.93401 2.87311 9.67625 2.87311Z"
+                          fill="currentColor"/>
+                </svg>
+                <form action="">
+                    <input type="text" placeholder="Tezkor qidiruv">
+                </form>
+            </div>
+            <div class="sectionLinks">
+                <div class="link">
+                    <a href="{% url 'basic_app:main1' %}">O‘quv me’yoriy hujjatlar</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main2' %}">O‘quv qo‘llanmalar</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main3' %}">O‘qitish materiallari to’plami</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main4' %}">Metodik mahsulotlar</a>
+                </div>
+            </div>
+            <div class="left">
+                <ul class="headerNav">
+                    <li class="leftItem"><a href="{% url 'basic_app:index' %}">Bosh sahifa</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:home5' %}">Guvohnomani tekshirish</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:main5' %}">Jurnal</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:main6' %}">Siz uchun foydali</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:index' %}#news">Yangiliklar</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:index' %}#footerTop">Biz bilan bog‘lanish</a></li>
+                    <li class="leftItem"><a href="{% url 'basic_app:muhokama' %}">Muhokama uchun</a></li>
+                </ul>
+            </div>
+            <div class="rigth">
+                <ul class="headerNav">
+                    <li class="rightItem language">
+                        <a id="language">
+                            <p id="languageText">O‘zbekcha</p>
+                            <svg id="DDimg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                        d="M2.82734 5.16393C3.02214 4.96523 3.32696 4.94716 3.54177 5.10974L3.60331 5.16393L7.99996 9.64894L12.3966 5.16393C12.5914 4.96523 12.8962 4.94716 13.111 5.10974L13.1726 5.16393C13.3674 5.36264 13.3851 5.67358 13.2257 5.8927L13.1726 5.95547L8.38795 10.8361C8.19315 11.0348 7.88832 11.0528 7.67351 10.8903L7.61197 10.8361L2.82734 5.95547C2.61306 5.73689 2.61306 5.38251 2.82734 5.16393Z"
+                                        fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <div id="DDmenu">
+                            <a id="uz" class="DDitem" href="#">O‘zbekcha</a>
+                            <a id="en" href="#">English</a>
+                        </div>
+                    </li>
+                    <li class="rightItem specialopportunity">
+                        <a href="#">
+                            {% if user.is_authenticated %}
+                            <p>Xush kelibsiz,</p>  <strong>{{ user.name|get_name }}</strong>
+                            {% else %}
+                            <p>Saytdan foydalanish uchun ro'yxatdan o'ting!!!</p>
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- END HEADER -->
+
+<!-- MAIN -->
+
+<section class="main">
+    <div class="navbar">
+        <div class="container">
+            <div class="row">
+                <a href="{% url 'basic_app:index' %}" class="logo">
+                    <img src="{% static 'img/1Logo.svg' %}" alt="Logo" style="margin:10px;">
+                    <p>
+                        PEDAGOGIK INNOVATSIYALAR, <br> KASB-HUNAR TA’LIMI BOSHQARUV HAMDA <br> PEDAGOG KADRLARNI QAYTA
+                        TAYYORLASH <br> VA ULARNING MALAKASINI OSHIRISH INSTITUTI
+                    </p>
+                </a>
+                <div class="Navbarlink">
+                    <ul class="NavbarNav">
+                        <li class="NavbarItem"><a href="{% url 'basic_app:main1' %}">O‘quv me’yoriy hujjatlar</a></li>
+                        <li class="NavbarItem"><a href="{% url 'basic_app:main2' %}">O‘quv qo‘llanmalar</a></li>
+                        <li class="NavbarItem"><a href="{% url 'basic_app:main3' %}">O‘qitish materiallari to’plami</a>
+                        </li>
+                        <li class="NavbarItem"><a href="{% url 'basic_app:main4' %}">Metodik mahsulotlar</a></li>
+                    </ul>
+                </div>
+                <div class="buttonBox">
+                    {% if user.is_authenticated %}
+                    <div class="buttonBox">
+                        <a href="{% url 'user_app:logout' %}" class="exit1">
+                            <p>Chiqish</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                <path fill-rule="evenodd"
+                                      d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+
+                        </a>
+
+
+                    </div>
+                    {% else %}
+                    <button class="enter">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M21.4936 6.90691C21.3848 4.55946 19.4478 2.69025 17.0734 2.69025H12.1894L11.9806 2.69507C9.62755 2.80403 7.75438 4.74483 7.75438 7.12425V8.05725L7.76123 8.15902C7.81089 8.52509 8.12469 8.80725 8.50438 8.80725C8.9186 8.80725 9.25438 8.47146 9.25438 8.05725V7.12425L9.25936 6.9518C9.34859 5.41122 10.6256 4.19025 12.1894 4.19025H17.0734L17.2453 4.19521C18.781 4.28415 19.9984 5.55717 19.9984 7.11525V18.2552L19.9934 18.4277C19.9041 19.9682 18.6263 21.1902 17.0634 21.1902H12.1784L12.0066 21.1853C10.472 21.0963 9.25438 19.8226 9.25438 18.2652V17.3232L9.24754 17.2215C9.19788 16.8554 8.88408 16.5732 8.50438 16.5732C8.09017 16.5732 7.75438 16.909 7.75438 17.3232V18.2652L7.75949 18.4796C7.87131 20.8234 9.80715 22.6902 12.1784 22.6902H17.0634L17.2721 22.6854C19.6245 22.5764 21.4984 20.6345 21.4984 18.2552V7.11525L21.4936 6.90691ZM12.3534 9.24481C12.6191 8.97799 13.0357 8.95293 13.3298 9.17018L13.414 9.24263L16.342 12.1586C16.6096 12.4251 16.6339 12.8432 16.415 13.1372L16.4123 13.1404C16.3914 13.1682 16.3685 13.1946 16.344 13.2192L16.342 13.2215L13.414 16.1375C13.1205 16.4298 12.6457 16.4288 12.3534 16.1353C12.0876 15.8685 12.0643 15.4518 12.2828 15.1586L12.3555 15.0746L13.9963 13.44H3.77148C3.35727 13.44 3.02148 13.1043 3.02148 12.69C3.02148 12.3104 3.30364 11.9966 3.66971 11.9469L3.77148 11.94H13.9961L12.3555 10.3055C12.0887 10.0397 12.0637 9.62313 12.2809 9.32907L12.3534 9.24481Z"
+                                  fill="currentColor"/>
+                        </svg>
+                        Kirish
+                    </button>
+                    {% endif %}
+                    <button class="menu menuX">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                    d="M21.3333 19.6405H2.66667C2.48986 19.6405 2.32029 19.5703 2.19526 19.4453C2.07024 19.3202 2 19.1507 2 18.9739C2 18.797 2.07024 18.6275 2.19526 18.5025C2.32029 18.3774 2.48986 18.3072 2.66667 18.3072H21.3333C21.5101 18.3072 21.6797 18.3774 21.8047 18.5025C21.9298 18.6275 22 18.797 22 18.9739C22 19.1507 21.9298 19.3202 21.8047 19.4453C21.6797 19.5703 21.5101 19.6405 21.3333 19.6405Z"
+                                    fill="currentColor"/>
+                            <path
+                                    d="M21.3333 12.9739H2.66667C2.48986 12.9739 2.32029 12.9036 2.19526 12.7786C2.07024 12.6536 2 12.484 2 12.3072C2 12.1304 2.07024 11.9608 2.19526 11.8358C2.32029 11.7108 2.48986 11.6405 2.66667 11.6405H21.3333C21.5101 11.6405 21.6797 11.7108 21.8047 11.8358C21.9298 11.9608 22 12.1304 22 12.3072C22 12.484 21.9298 12.6536 21.8047 12.7786C21.6797 12.9036 21.5101 12.9739 21.3333 12.9739Z"
+                                    fill="currentColor"/>
+                            <path
+                                    d="M21.3333 6.30718H2.66667C2.48986 6.30718 2.32029 6.23694 2.19526 6.11192C2.07024 5.98689 2 5.81732 2 5.64051C2 5.4637 2.07024 5.29413 2.19526 5.16911C2.32029 5.04408 2.48986 4.97385 2.66667 4.97385H21.3333C21.5101 4.97385 21.6797 5.04408 21.8047 5.16911C21.9298 5.29413 22 5.4637 22 5.64051C22 5.81732 21.9298 5.98689 21.8047 6.11192C21.6797 6.23694 21.5101 6.30718 21.3333 6.30718Z"
+                                    fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="exit menuX">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                             class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loginbox" id="loginbox">
+        <div class="login animate" id="login">
+            <div class="x">
+                <svg style="cursor: pointer;" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                    <path d="M5 5L15 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Tizimga kirish</h1>
+            <div class="Linput tel">
+                <input type="text" name="telephone" class="inputLogin input1 phone form-control"
+                       placeholder="+998 (__) ___-__-__" required/>
+                <p class="required required1" id="tel">Telefon raqamingizni kiriting!</p>
+            </div>
+            <div class="Linput">
+                <input class="inputLogin input1" type="password" id="password" placeholder="Parol" name="password">
+                <p class="required required1" id="pass">Parolni kiriting!</p>
+                <svg id="show" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M10.2401 3.33736L10.0016 3.33334C6.55086 3.33334 3.44101 5.76924 1.71739 9.75487C1.64971 9.91138 1.64971 10.0886 1.71739 10.2451L1.83682 10.514C3.53861 14.2443 6.4795 16.5536 9.75979 16.6627L9.99829 16.6667C13.4491 16.6667 16.5589 14.2308 18.2825 10.2451C18.3511 10.0867 18.3502 9.907 18.28 9.74921L18.164 9.48804C16.4581 5.75077 13.5159 3.44623 10.2401 3.33736ZM10.0075 4.57453L10.2066 4.57881L10.4291 4.59039C13.0934 4.77904 15.5437 6.75462 17.0241 9.99927L17.0164 10.0193C15.4989 13.3337 12.9641 15.3211 10.2157 15.4208L10.0033 15.424L9.78907 15.4211L9.56713 15.4096C6.98555 15.2267 4.60527 13.362 3.11591 10.2998L2.97496 9.99927L3.10544 9.72184C4.67594 6.47763 7.24286 4.57523 10.0075 4.57453ZM9.99954 6.76123C8.1992 6.76123 6.74038 8.21095 6.74038 10.0002C6.74038 11.7887 8.19936 13.2383 9.99954 13.2383C11.7998 13.2383 13.2595 11.7886 13.2595 10.0002C13.2595 8.21105 11.8 6.76123 9.99954 6.76123ZM9.99954 8.00316C11.1097 8.00316 12.0095 8.89701 12.0095 10.0002C12.0095 11.1026 11.1096 11.9964 9.99954 11.9964C8.88972 11.9964 7.99038 11.1028 7.99038 10.0002C7.99038 8.89679 8.88962 8.00316 9.99954 8.00316Z"
+                          fill="currentColor"/>
+                </svg>
+            </div>
+            <button type="submit" id="kirish" class="kirish">Kirish</button>
+            <p class="required required1" id="loginError">login yoki parol xato!</p>
+            <div class="gosignup">
+                <button id="gosignup">Ro'yxatdan o'tish</button>
+            </div>
+        </div>
+
+
+        <div class="signup animate" id="signup">
+            <div class="x">
+                <svg style="cursor: pointer;" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                    <path d="M5 5L15 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Ro’yxatdan o’tish</h1>
+            <div class="Linput">
+                <input class="inputSignup input1" type="text" placeholder="FISh" name="fio">
+                <p class="requiredS required1 p-array">F.I.SH kiriring!</p>
+                <p id="is_name" class="requiredS required1">Bu FIO oldin ro'yxatdan o'tgan</p>
+            </div>
+            {% block hudud %}
+            <div class="Linput">
+                <select class="inputSignup select1 input1 select_viloyat" name="viloyatni tanlash" id="aa">
+                    <option value="">Viloyatni tanlang</option>
+                    {% for i in vil %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+                <p class="requiredS required1 p-array">Viloyatni tanlang</p>
+                <svg id="DDimg" width="20" height="20" viewBox="0 0 16 16" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            d="M2.82734 5.16393C3.02214 4.96523 3.32696 4.94716 3.54177 5.10974L3.60331 5.16393L7.99996 9.64894L12.3966 5.16393C12.5914 4.96523 12.8962 4.94716 13.111 5.10974L13.1726 5.16393C13.3674 5.36264 13.3851 5.67358 13.2257 5.8927L13.1726 5.95547L8.38795 10.8361C8.19315 11.0348 7.88832 11.0528 7.67351 10.8903L7.61197 10.8361L2.82734 5.95547C2.61306 5.73689 2.61306 5.38251 2.82734 5.16393Z"
+                            fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="Linput">
+                <select class="inputSignup select1 input1 select_tuman" name="viloyatni tanlash" id="tuman">
+                    <option value="">Tumanni tanlang</option>
+                    {% for i in tum %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                </select>
+                <p class="requiredS required1 p-array">Tumanni tanlang</p>
+                <svg id="DDimg" width="20" height="20" viewBox="0 0 16 16" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            d="M2.82734 5.16393C3.02214 4.96523 3.32696 4.94716 3.54177 5.10974L3.60331 5.16393L7.99996 9.64894L12.3966 5.16393C12.5914 4.96523 12.8962 4.94716 13.111 5.10974L13.1726 5.16393C13.3674 5.36264 13.3851 5.67358 13.2257 5.8927L13.1726 5.95547L8.38795 10.8361C8.19315 11.0348 7.88832 11.0528 7.67351 10.8903L7.61197 10.8361L2.82734 5.95547C2.61306 5.73689 2.61306 5.38251 2.82734 5.16393Z"
+                            fill="currentColor"/>
+                </svg>
+            </div>
+            {% endblock %}
+            <div class="Linput">
+                <input class="inputSignup input1" type="text" placeholder="Ta'lim muassasasi nomi" name="muassasa">
+                <p class="requiredS required1 p-array">Ta'lim muassasasi nomini kiriting!</p>
+            </div>
+            <div class="checkbox">
+                <div class="custom-radio">
+                    <input class="input1" type="radio" id="radio" name="check" value="Boshqaruv hodim">
+                    <label for="radio">
+                        <span></span>
+                    </label>
+                    <p>Boshqaruv hodim</p>
+                </div>
+                <div class="custom-radio">
+                    <input checked class="input1" type="radio" id="radio1" name="check" value="Pedagog">
+                    <label for="radio1">
+                        <span></span>
+                    </label>
+                    <p>Pedagog</p>
+                </div>
+            </div>
+            <div class="Linput">
+                <input class="inputSignup input1" type="text" name="lavozimi" placeholder="Lavozimi">
+                <p class="requiredS required1 p-array">Lavozimini kiriting!</p>
+            </div>
+            <div class="Linput">
+                <input type="text" name="telephone" id="phone" class="inputSignup input1 phoneS form-control"
+                       placeholder="+998 (__) ___-__-__" required/>
+                <p id="is_phone" class="requiredS required1 p-array">Telefon raqamingizni kiriting!</p>
+            </div>
+            <div class="Linput">
+                <input class="inputSignup input1" type="password" id="passwordS" placeholder="Parol" name="password"
+                       minlength="8" min="8">
+                <p class="requiredS required1 p-array">Parolni kiriting!</p>
+                <p id="p-parol" class="requiredS required1">Parolga 8 tadan kam bo'lmagan belgi kiriting!!!</p>
+                <svg id="showS" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M10.2401 3.33736L10.0016 3.33334C6.55086 3.33334 3.44101 5.76924 1.71739 9.75487C1.64971 9.91138 1.64971 10.0886 1.71739 10.2451L1.83682 10.514C3.53861 14.2443 6.4795 16.5536 9.75979 16.6627L9.99829 16.6667C13.4491 16.6667 16.5589 14.2308 18.2825 10.2451C18.3511 10.0867 18.3502 9.907 18.28 9.74921L18.164 9.48804C16.4581 5.75077 13.5159 3.44623 10.2401 3.33736ZM10.0075 4.57453L10.2066 4.57881L10.4291 4.59039C13.0934 4.77904 15.5437 6.75462 17.0241 9.99927L17.0164 10.0193C15.4989 13.3337 12.9641 15.3211 10.2157 15.4208L10.0033 15.424L9.78907 15.4211L9.56713 15.4096C6.98555 15.2267 4.60527 13.362 3.11591 10.2998L2.97496 9.99927L3.10544 9.72184C4.67594 6.47763 7.24286 4.57523 10.0075 4.57453ZM9.99954 6.76123C8.1992 6.76123 6.74038 8.21095 6.74038 10.0002C6.74038 11.7887 8.19936 13.2383 9.99954 13.2383C11.7998 13.2383 13.2595 11.7886 13.2595 10.0002C13.2595 8.21105 11.8 6.76123 9.99954 6.76123ZM9.99954 8.00316C11.1097 8.00316 12.0095 8.89701 12.0095 10.0002C12.0095 11.1026 11.1096 11.9964 9.99954 11.9964C8.88972 11.9964 7.99038 11.1028 7.99038 10.0002C7.99038 8.89679 8.88962 8.00316 9.99954 8.00316Z"
+                          fill="currentColor"/>
+                </svg>
+            </div>
+            <button class="kirish" id="send">Yuborish</button>
+            <div class="gologin">
+                <p>Ro’yxatdan o’tganmisiz?</p>
+                <button id="gologin"> Tizimga kirish</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="smsverification">
+        <div class="box">
+            <svg class="smsExit" style="cursor: pointer;" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 5L5 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round"/>
+                <path d="M5 5L15 15" stroke="#A7B6C2" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+            <h1>Ro’yxatdan o’tish</h1>
+            <p> Telefon raqamingizga sms orqali 6 xonali tasdiqlash kodi jo'natildi. Iltimos kodni kiriting!</p>
+            <div class="smscode">
+                <form action="#" id="form" method="post">
+                    {% csrf_token %}
+                    <div class="">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control code">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control code">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control code">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control code">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control code">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control last-form-control code">
+                        <p id="timer">01:59</p>
+                        <button type="reset" id="restartcode">KODNI QAYTA YUBORISH</button>
+                    </div>
+                </form>
+            </div>
+            <p id="xato-kod" class="requiredS required1">Kod xato. Iltimos tekshirib boshqatdan kiriting!!!</p>
+            <div class="buttonbox">
+                <button type="submit" class="ok" id="kodni-tasdiqlash">Tasdiqlash</button>
+            </div>
+            <div class="gologin">
+                <p>Ro’yxatdan o’tganmisiz?</p>
+                <button id="gologin2"> Tizimga kirish</button>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+    <div class="mainbox">
+        <div class="container">
+            <div class="sectionHeader">
+                <div class="textbox">
+                    <div class="tbox">
+                        <h1>Metodik ta’minlash platformasi</h1>
+                    </div>
+                </div>
+                <div class="imgbox">
+                    <img src="{% static 'img/base.svg' %}" alt="">
+                </div>
+            </div>
+            <div class="sectionLinks">
+                <div class="link">
+                    <a href="{% url 'basic_app:main1' %}">O‘quv me’yoriy hujjatlar</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main2' %}">O‘quv qo‘llanmalar</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main3' %}">O‘qitish materiallari to’plami</a>
+                </div>
+                <div class="link">
+                    <a href="{% url 'basic_app:main4' %}">Metodik mahsulotlar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home1">
+        <div class="container">
+            <div class="news" id="news">
+                <div class="big_news">
+                    <h1>Yangiliklar va e’lonlar</h1>
+                    <a href="#">Barcha yangiliklar va e’lonlar</a>
+                </div>
+                <div class="min_news">
+                    {% for i in first_page %}
+                    <div class="new">
+                        <span>{{i.date}}</span>
+                        <a href="{% url 'basic_app:news' i.id %}">{{i.text}}</a>
+                        <a href="{% url 'basic_app:news' i.id %}" class="a"> <img src="{{i.img.url}}" alt="messi"></a>
+                        <p>{{i.description}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if page_range|length > 1 %}
+                <div class="pagination">
+                    {% for i in page_range %}
+                    <a class="news_pag">{{i}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="son">
+                <div class="sonlar">
+                    <span class="Count">{{mey}}</span>
+                    <p>O'quv me'yoriy hujjatlar</p>
+                    <div class="border"></div>
+                </div>
+                <div class="sonlar">
+                    <span class="Count">{{q}}</span>
+                    <p>O‘quv qo‘llanmalar</p>
+                    <div class="border"></div>
+                </div>
+                <div class="sonlar">
+                    <span class="Count">{{m}}</span>
+                    <p>O‘qitish materiallari to‘plami</p>
+                    <div class="border"></div>
+                </div>
+                <div class="sonlar">
+                    <span class="Count">{{k}}</span>
+                    <p>Qisqa muddatli kurslar</p>
+                    <div class="border"></div>
+                </div>
+                <div class="sonlar">
+                    <span class="Count">{{user_len}}</span>
+                    <p>Foydalanuvchilar</p>
+                    <div class="border"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home2">
+        <div class="container">
+            <div class="item">
+                <h1>Eng ko‘p ko‘rilganlar</h1>
+            </div>
+            <section class="autoplay slider">
+                {% for i in more_seen %}
+                <div>
+                    <a href="{% url 'basic_app:home1' i.id %}" class="card">
+                        <div class="textbox">
+                            {% if i.get_id|slice:'1' == '3' %}
+                            <p>Kasb</p>
+                            <h2>{{ i.name }}</h2>
+                            <span>Boshlang‘ich professional ta’lim</span>
+                            {% elif i.get_id|slice:'1' == '4' %}
+                            <p>Mutaxassislik</p>
+                            <h2>{{ i.name }}</h2>
+                            <span>O'rta professional ta’lim</span>
+                            {% else %}
+                            <p>Mutaxassislik</p>
+                            <h2>{{ i.name }}</h2>
+                            <span>O'rta-maxsus professional ta’lim</span>
+                            {% endif %}
+                        </div>
+                        <div class="imgbox">
+                            <div class="built">
+                                <img src="{{i.img.url}}" alt="">
+                                <span><i>
+                                        <svg enable-background="new -0.709 -32.081 141.732 141.732" height="16"
+                                             id="Livello_1" version="1.1" viewBox="-0.709 -32.081 141.732 141.732"
+                                             width="16px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g id="Livello_80">
+                                                <path
+                                                        d="M89.668,38.786c0-10.773-8.731-19.512-19.51-19.512S50.646,28.01,50.646,38.786c0,10.774,8.732,19.511,19.512,19.511   C80.934,58.297,89.668,49.561,89.668,38.786 M128.352,38.727c-13.315,17.599-34.426,28.972-58.193,28.972   c-23.77,0-44.879-11.373-58.194-28.972C25.279,21.129,46.389,9.756,70.158,9.756C93.927,9.756,115.036,21.129,128.352,38.727    M140.314,38.76C125.666,15.478,99.725,0,70.158,0S14.648,15.478,0,38.76c14.648,23.312,40.591,38.81,70.158,38.81   S125.666,62.072,140.314,38.76"
+                                                        fill="#000">
+                                                </path>
+                                            </g>
+                                            <g id="Livello_1_1_"/>
+                                        </svg>
+                                    </i>{{i.view}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+
+    <div class="home3">
+        <div class="container">
+            <div class="bigLoiha">
+                <div class="loiha">
+                    <h1>Loyiha haqida</h1>
+                    <p>Ushbu axborot tizimi Pedagogik innovatsiyalar, kasb-hunar taʼlimi boshqaruv hamda pedagog
+                        kadrlarni
+                        qayta tayyorlash va ularning malakasini oshirish instituti Professional ta’limni raqamlashtirish
+                        laboratoriyasi tomonidan ishlab
+                        chiqilgan boʼlib, professional taʼlim muassasalari uchun metodik ta’minotni amalga oshiradi.
+                    </p>
+                </div>
+                <div class="raketa">
+                    <img src="{% static 'img/raketa.svg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home4">
+        <div class="container">
+            <div class="item">
+                <h1>Foydali havolalar</h1>
+            </div>
+            <section class="autoplay1 slider">
+                {% for i in foydali %}
+                <div class="img_brand">
+                    <div class="img-log">
+                        <img src="{{i.imag.url}}" alt="">
+                    </div>
+                    <a href="{{i.url}}" target="_blank">
+                        <p>{{i.name}}</p>
+                    </a>
+                </div>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+    {% endblock %}
+</section>
+
+<!-- END MAIN -->
+
+<!-- FOOTER -->
+
+<section class="footer">
+    <div class="container">
+        <div class="footerTop" id="footerTop">
+            <div class="col">
+                <h1>Metodik ta’minot platformasi</h1>
+                <a href="{% url 'basic_app:index' %}" class="logo">
+                    <img src="{% static 'img/1Logofooter.svg' %}" alt="Logo">
+                    <p>
+                        PEDAGOGIK INNOVATSIYALAR, <br> KASB-HUNAR TA’LIMI BOSHQARUV HAMDA <br> PEDAGOG KADRLARNI QAYTA
+                        TAYYORLASH <br> VA ULARNING MALAKASINI OSHIRISH INSTITUTI
+                    </p>
+                </a>
+            </div>
+            <div class="col">
+                <ul>
+                    <li><a href="{% url 'basic_app:index' %}">Bosh sahifa</a></li>
+                    <li><a href="{% url 'basic_app:home5' %}">Guvohnomani tekshirish</a></li>
+                    <li><a href="{% url 'basic_app:index' %}#news">Yangiliklar va e’lonlar</a></li>
+                    <li><a href="#">Biz bilan bog‘lanish</a></li>
+                    <li><a href="#">Maxfiylik siyosati</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul>
+                    <li><a href="#">Ta’lim standartlari va fanlar</a></li>
+                    <li><a href="{% url 'basic_app:main2' %}">O‘quv qo‘llanmalar</a></li>
+                    <li><a href="{% url 'basic_app:main3' %}">O‘quv materiallari</a></li>
+                    <li><a href="{% url 'basic_app:main4' %}">Metodik mahsulotlar</a></li>
+                    <li><a href="#">Tizimga kirish</a></li>
+                </ul>
+            </div>
+            <div class="col manzil">
+                <div class="row">
+                    <span>Telefon</span>
+                    <a href="tel:+998712469037" class="tel">+998 71 246-90-37</a>
+                </div>
+                <div class="row">
+                    <span>Email</span>
+                    <a href="mailto:pedagoginnovatsiyalar@edu.uz" class="mail">pedagoginnovatsiyalar@edu.uz</a>
+                </div>
+                <div class="row">
+                    <span>Manzil</span>
+                    <a target="_blank" href="https://yandex.uz/maps/-/CCUeEIRTGC" class="location">Toshkent shahar,
+                        Olmazor tumani, Ziyo ko‘chasi, 76-uy</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="footerBottom">
+            <div class="left">
+                <p>© 2021 Metodik ta’minot platformasi. Barcha huquqlar himoyalangan.</p>
+            </div>
+            <div class="right">
+                <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M10.1246 0H20.089C21.3975 0 22.6932 0.257737 23.9022 0.758496C25.1111 1.25925 26.2096 1.99323 27.1349 2.91851C28.0602 3.84379 28.7941 4.94226 29.2949 6.1512C29.7956 7.36014 30.0534 8.65587 30.0534 9.96441C30.0534 11.273 29.7956 12.5687 29.2949 13.7776C28.7941 14.9866 28.0602 16.085 27.1349 17.0103C26.2096 17.9356 25.1111 18.6696 23.9022 19.1703C22.6932 19.6711 21.3975 19.9288 20.089 19.9288V29.8932H10.1246V19.9288H0.160156V9.9644H10.1246V0ZM20.089 19.9288V9.96441H10.1246V19.9288H20.089Z"
+                          fill="white"/>
+                </svg>
+                <div class="text">
+                    <p>Pixspace</p>
+                    <span>Creative Design Studio</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- END FOOTER -->
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="{% static 'slick/slick.js' %}" type="text/javascript " charset="utf-8"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+<script src="{% static 'js/section.js' %}"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+<script src="{% static 'js/pagination_ajax.js' %}"></script>
+{% endblock %}
+<script>
+        $('.Count').each(function() {
+            var $this = $(this);
+            jQuery({
+                Counter: 0
+            }).animate({
+                Counter: $this.text()
+            }, {
+                duration: 3000,
+                easing: 'swing',
+                step: function() {
+                    $this.text(Math.ceil(this.Counter));
+                }
+            });
+        });
+        jQuery(function($) {
+            $(".phone").mask("+998 (00) 000-00-00"), {
+                autoclear: false
+            };
+        });
+        jQuery(function($) {
+            $(".phoneS").mask("+998 (00) 000-00-00"), {
+                autoclear: false
+            };
+        });
+        //digitalbush.com/projects/masked-input-plugin/
+        ! function(a) {
+            "function" == typeof define && define.amd ? define(["jquery"], a) : a("object" == typeof exports ? require("jquery") : jQuery)
+        }(function(a) {
+            var b, c = navigator.userAgent,
+                d = /iphone/i.test(c),
+                e = /chrome/i.test(c),
+                f = /android/i.test(c);
+            a.mask = {
+                definitions: {
+                    0: "[0-9]",
+                    a: "[A-Za-z]",
+                    "*": "[A-Za-z0-9]"
+                },
+                autoclear: !0,
+                dataName: "rawMaskFn",
+                placeholder: "_"
+            }, a.fn.extend({
+                caret: function(a, b) {
+                    var c;
+                    if (0 !== this.length && !this.is(":hidden")) return "number" == typeof a ? (b = "number" == typeof b ? b : a, this.each(function() {
+                        this.setSelectionRange ? this.setSelectionRange(a, b) : this.createTextRange && (c = this.createTextRange(), c.collapse(!0), c.moveEnd("character", b), c.moveStart("character", a), c.select())
+                    })) : (this[0].setSelectionRange ? (a = this[0].selectionStart, b = this[0].selectionEnd) : document.selection && document.selection.createRange && (c = document.selection.createRange(), a = 0 - c.duplicate().moveStart("character", -1e5), b = a + c.text.length), {
+                        begin: a,
+                        end: b
+                    })
+                },
+                unmask: function() {
+                    return this.trigger("unmask")
+                },
+                mask: function(c, g) {
+                    var h, i, j, k, l, m, n, o;
+                    if (!c && this.length > 0) {
+                        h = a(this[0]);
+                        var p = h.data(a.mask.dataName);
+                        return p ? p() : void 0
+                    }
+                    return g = a.extend({
+                        autoclear: a.mask.autoclear,
+                        placeholder: a.mask.placeholder,
+                        completed: null
+                    }, g), i = a.mask.definitions, j = [], k = n = c.length, l = null, a.each(c.split(""), function(a, b) {
+                        "?" == b ? (n--, k = a) : i[b] ? (j.push(new RegExp(i[b])), null === l && (l = j.length - 1), k > a && (m = j.length - 1)) : j.push(null)
+                    }), this.trigger("unmask").each(function() {
+                        function h() {
+                            if (g.completed) {
+                                for (var a = l; m >= a; a++)
+                                    if (j[a] && C[a] === p(a)) return;
+                                g.completed.call(B)
+                            }
+                        }
+
+                        function p(a) {
+                            return g.placeholder.charAt(a < g.placeholder.length ? a : 0)
+                        }
+
+                        function q(a) {
+                            for (; ++a < n && !j[a];);
+                            return a
+                        }
+
+                        function r(a) {
+                            for (; --a >= 0 && !j[a];);
+                            return a
+                        }
+
+                        function s(a, b) {
+                            var c, d;
+                            if (!(0 > a)) {
+                                for (c = a, d = q(b); n > c; c++)
+                                    if (j[c]) {
+                                        if (!(n > d && j[c].test(C[d]))) break;
+                                        C[c] = C[d], C[d] = p(d), d = q(d)
+                                    }
+                                z(), B.caret(Math.max(l, a))
+                            }
+                        }
+
+                        function t(a) {
+                            var b, c, d, e;
+                            for (b = a, c = p(a); n > b; b++)
+                                if (j[b]) {
+                                    if (d = q(b), e = C[b], C[b] = c, !(n > d && j[d].test(e))) break;
+                                    c = e
+                                }
+                        }
+
+                        function u() {
+                            var a = B.val(),
+                                b = B.caret();
+                            if (o && o.length && o.length > a.length) {
+                                for (A(!0); b.begin > 0 && !j[b.begin - 1];) b.begin--;
+                                if (0 === b.begin)
+                                    for (; b.begin < l && !j[b.begin];) b.begin++;
+                                B.caret(b.begin, b.begin)
+                            } else {
+                                for (A(!0); b.begin < n && !j[b.begin];) b.begin++;
+                                B.caret(b.begin, b.begin)
+                            }
+                            h()
+                        }
+
+                        function v() {
+                            A(), B.val() != E && B.change()
+                        }
+
+                        function w(a) {
+                            if (!B.prop("readonly")) {
+                                var b, c, e, f = a.which || a.keyCode;
+                                o = B.val(), 8 === f || 46 === f || d && 127 === f ? (b = B.caret(), c = b.begin, e = b.end, e - c === 0 && (c = 46 !== f ? r(c) : e = q(c - 1), e = 46 === f ? q(e) : e), y(c, e), s(c, e - 1), a.preventDefault()) : 13 === f ? v.call(this, a) : 27 === f && (B.val(E), B.caret(0, A()), a.preventDefault())
+                            }
+                        }
+
+                        function x(b) {
+                            if (!B.prop("readonly")) {
+                                var c, d, e, g = b.which || b.keyCode,
+                                    i = B.caret();
+                                if (!(b.ctrlKey || b.altKey || b.metaKey || 32 > g) && g && 13 !== g) {
+                                    if (i.end - i.begin !== 0 && (y(i.begin, i.end), s(i.begin, i.end - 1)), c = q(i.begin - 1), n > c && (d = String.fromCharCode(g), j[c].test(d))) {
+                                        if (t(c), C[c] = d, z(), e = q(c), f) {
+                                            var k = function() {
+                                                a.proxy(a.fn.caret, B, e)()
+                                            };
+                                            setTimeout(k, 0)
+                                        } else B.caret(e);
+                                        i.begin <= m && h()
+                                    }
+                                    b.preventDefault()
+                                }
+                            }
+                        }
+
+                        function y(a, b) {
+                            var c;
+                            for (c = a; b > c && n > c; c++) j[c] && (C[c] = p(c))
+                        }
+
+                        function z() {
+                            B.val(C.join(""))
+                        }
+
+                        function A(a) {
+                            var b, c, d, e = B.val(),
+                                f = -1;
+                            for (b = 0, d = 0; n > b; b++)
+                                if (j[b]) {
+                                    for (C[b] = p(b); d++ < e.length;)
+                                        if (c = e.charAt(d - 1), j[b].test(c)) {
+                                            C[b] = c, f = b;
+                                            break
+                                        }
+                                    if (d > e.length) {
+                                        y(b + 1, n);
+                                        break
+                                    }
+                                } else C[b] === e.charAt(d) && d++, k > b && (f = b);
+                            return a ? z() : k > f + 1 ? g.autoclear || C.join("") === D ? (B.val() && B.val(""), y(0, n)) : z() : (z(), B.val(B.val().substring(0, f + 1))), k ? b : l
+                        }
+                        var B = a(this),
+                            C = a.map(c.split(""), function(a, b) {
+                                return "?" != a ? i[a] ? p(b) : a : void 0
+                            }),
+                            D = C.join(""),
+                            E = B.val();
+                        B.data(a.mask.dataName, function() {
+                            return a.map(C, function(a, b) {
+                                return j[b] && a != p(b) ? a : null
+                            }).join("")
+                        }), B.one("unmask", function() {
+                            B.off(".mask").removeData(a.mask.dataName)
+                        }).on("focus.mask", function() {
+                            if (!B.prop("readonly")) {
+                                clearTimeout(b);
+                                var a;
+                                E = B.val(), a = A(), b = setTimeout(function() {
+                                    B.get(0) === document.activeElement && (z(), a == c.replace("?", "").length ? B.caret(0, a) : B.caret(a))
+                                }, 10)
+                            }
+                        }).on("blur.mask", v).on("keydown.mask", w).on("keypress.mask", x).on("input.mask paste.mask", function() {
+                            B.prop("readonly") || setTimeout(function() {
+                                var a = A(!0);
+                                B.caret(a), h()
+                            }, 0)
+                        }), e && f && B.off("input.mask").on("input.mask", u), A()
+                    })
+                }
+            })
+        });
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

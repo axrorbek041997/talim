@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block hudud %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="home">
+    <div class="general">
+        <div class="container">
+            <div class="sectionHeader">
+                <div class="textbox">
+                    <a href="{% url 'basic_app:main4' %}">
+                        <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M14.9107 7.68571C15.2435 7.63989 15.5 7.35039 15.5 7.00009C15.5 6.61795 15.1947 6.30816 14.8182 6.30816L2.83339 6.30816L7.16276 1.93222L7.22893 1.85475C7.42753 1.58429 7.40631 1.19984 7.16475 0.953677C6.89904 0.682901 6.46733 0.681994 6.20052 0.951651L0.710232 6.50036C0.677528 6.53215 0.64794 6.56722 0.621978 6.60504C0.43614 6.87525 0.462336 7.25007 0.700557 7.49078L6.20056 13.0484L6.27717 13.1152C6.54452 13.3156 6.92325 13.2925 7.16479 13.0463C7.43048 12.7755 7.42955 12.3374 7.16271 12.0677L2.83231 7.69202L14.8182 7.69202L14.9107 7.68571Z"
+                                  fill="#06989D"/>
+                        </svg>
+                        Ortga qaytish</a>
+                    <h1>{{qisqa_kurs.name}}</h1>
+
+                </div>
+            </div>
+            <div class="sectionBody">
+                <div class="left">
+                    {% if qisqa_kurs.img %}
+                    <img src="{{qisqa_kurs.img.url}}" alt="">
+                    {% else %}
+                    <img src="{% static 'img/no_photo.png' %}" alt="">
+                    {% endif %}
+                    <a href="#" class="totop">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M11.1771 20.2928C11.2321 20.6922 11.5795 21 11.9999 21C12.4585 21 12.8302 20.6337 12.8302 20.1818L12.8302 5.80007L18.0813 10.9953L18.1743 11.0747C18.4989 11.313 18.9602 11.2876 19.2556 10.9977C19.5805 10.6788 19.5816 10.1608 19.258 9.84062L12.5996 3.25226C12.5614 3.21304 12.5194 3.17756 12.474 3.14642C12.1498 2.92336 11.6999 2.95478 11.4111 3.24067L4.74193 9.84067L4.66174 9.9326C4.42125 10.2534 4.44905 10.7079 4.74446 10.9977C5.06942 11.3166 5.59515 11.3155 5.91871 10.9953L11.1696 5.79877L11.1696 20.1818L11.1771 20.2928Z"
+                                  fill="currentColor"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="right">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card_text">
+                                <div class="textbox">
+                                    <h1>{{qisqa_kurs.kurs_tur_id}}</h1>
+                                    <p>{{qisqa_kurs.definition}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card9">
+                                <div class="textbox">
+                                    <h3>O'quv dastur</h3>
+                                    <p>So’ngi o’zgartirilgan sana: {{qisqa_kurs.date}}</p>
+                                </div>
+                                {% if user.is_authenticated %}
+                                <a href="{{qisqa_kurs.pdf.url}}" target="_blank" class="download">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M10.6857 3.0893C10.6399 2.7565 10.3504 2.5 10.0001 2.5C9.61795 2.5 9.30816 2.80526 9.30816 3.18182V15.1666L4.93222 10.8372L4.85475 10.7711C4.58429 10.5725 4.19984 10.5937 3.95368 10.8352C3.6829 11.101 3.68199 11.5327 3.95165 11.7995L9.50036 17.2898C9.53215 17.3225 9.56722 17.3521 9.60504 17.378C9.87525 17.5639 10.2501 17.5377 10.4908 17.2994L16.0484 11.7994L16.1152 11.7228C16.3156 11.4555 16.2925 11.0767 16.0463 10.8352C15.7755 10.5695 15.3374 10.5704 15.0677 10.8373L10.692 15.1677V3.18182L10.6857 3.0893Z"
+                                              fill="#fff"/>
+                                    </svg>
+                                    Yuklab olish
+                                </a>
+                                {% else %}
+                                <button class="download user-kirish">
+                                    Kirish
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="izoh">
+                        <h1>Izohlar</h1>
+                        <textarea id="w3review" name="w3review" rows="9" cols="100">     Izoh matni...</textarea>
+                        <div class="izoh_btn">
+                            <button class="izoh_btn1">
+                                <img src="{% static 'icons/Send.svg' %}" alt=""> Yuborish
+                            </button>
+                        </div>
+                        <a href="#">Izohlar topilmadi!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+<script src="{% static 'js/section.js' %}"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home8.css' %}">
+{% endblock %}
+
+{% block hudud %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="general">
+    <div class="container">
+        <div class="sectionHeader">
+            <div class="textbox">
+                <a href="{% url 'basic_app:index' %}">
+                    <svg width="16" height="14" viewBox="0 0 16 14" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M14.9107 7.68571C15.2435 7.63989 15.5 7.35039 15.5 7.00009C15.5 6.61795 15.1947 6.30816 14.8182 6.30816L2.83339 6.30816L7.16276 1.93222L7.22893 1.85475C7.42753 1.58429 7.40631 1.19984 7.16475 0.953677C6.89904 0.682901 6.46733 0.681994 6.20052 0.951651L0.710232 6.50036C0.677528 6.53215 0.64794 6.56722 0.621978 6.60504C0.43614 6.87525 0.462336 7.25007 0.700557 7.49078L6.20056 13.0484L6.27717 13.1152C6.54452 13.3156 6.92325 13.2925 7.16479 13.0463C7.43048 12.7755 7.42955 12.3374 7.16271 12.0677L2.83231 7.69202L14.8182 7.69202L14.9107 7.68571Z"
+                              fill="#06989D"/>
+                    </svg>
+                    Ortga qaytish</a>
+                <h1>Yangiliklar</h1>
+
+            </div>
+        </div>
+        <div class="sectionBody">
+            <div class="right1">
+                <div class="row">
+                    <div class="col">
+                        <div class="card_text">
+                            <div class="textbox">
+                                <h1>{{ news.text }}</h1>
+                                <div class="new_img">
+                                    <img src="{{ news.img.url }}" alt="">
+                                </div>
+                                <p>{{ news.description }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="left1">
+
+                {% for i in news_list %}
+                <div class="new1">
+                    <img src="{{ i.img.url }}" alt="" class="yangilik-detail-img">
+                    <div class="new_matn"><span>{{ i.date }}</span>
+                        <a href="{% url 'basic_app:news' i.id %}">{{ i.text }}</a>
+                        <p style="white-space:break-spaces; word-break: unset;">{{ i.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <a href="#" class="totop">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M11.1771 20.2928C11.2321 20.6922 11.5795 21 11.9999 21C12.4585 21 12.8302 20.6337 12.8302 20.1818L12.8302 5.80007L18.0813 10.9953L18.1743 11.0747C18.4989 11.313 18.9602 11.2876 19.2556 10.9977C19.5805 10.6788 19.5816 10.1608 19.258 9.84062L12.5996 3.25226C12.5614 3.21304 12.5194 3.17756 12.474 3.14642C12.1498 2.92336 11.6999 2.95478 11.4111 3.24067L4.74193 9.84067L4.66174 9.9326C4.42125 10.2534 4.44905 10.7079 4.74446 10.9977C5.06942 11.3166 5.59515 11.3155 5.91871 10.9953L11.1696 5.79877L11.1696 20.1818L11.1771 20.2928Z"
+                              fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+<script src="{% static 'js/section.js' %}"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+{% endblock %}

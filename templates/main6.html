@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block hudud %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="general">
+    <div class="container">
+        <div class="sectionHeader">
+            <div class="textbox">
+                <h1>Siz uchun foydali</h1>
+                <div class="search">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M9.67624 1.66666C5.25265 1.66666 1.66663 5.17348 1.66663 9.49937C1.66663 13.8253 5.25265 17.3321 9.67624 17.3321C11.5682 17.3321 13.3069 16.6906 14.6774 15.6179L17.2808 18.1572L17.3501 18.2155C17.5918 18.3904 17.9345 18.3705 18.1532 18.1561C18.3938 17.9202 18.3933 17.5383 18.1521 17.303L15.5793 14.7936C16.8874 13.3995 17.6859 11.5406 17.6859 9.49937C17.6859 5.17348 14.0998 1.66666 9.67624 1.66666ZM9.67625 2.87311C13.4185 2.87311 16.4522 5.83979 16.4522 9.49937C16.4522 13.159 13.4185 16.1256 9.67625 16.1256C5.93401 16.1256 2.90033 13.159 2.90033 9.49937C2.90033 5.83979 5.93401 2.87311 9.67625 2.87311Z"
+                              fill="currentColor"/>
+                    </svg>
+                    <form action="">
+                        <input type="text" placeholder="O‘quv materiallari bo’yicha izlash">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="sectionBody">
+
+            <div class="right main3 useful">
+                <div class="rightHeader">
+                    <div class="text">
+                        <h1>Saytlar ro'yxati</h1>
+                        <span id="main2infoNum">{{use|length}}</span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    {% for i in use %}
+                    <div class="col">
+                        <div class="card1">
+                            <div class="textbox">
+                                <p class="foydali-title">{{i.name}}</p>
+                                <a href="#" class="h2">{{i.description}}</a>
+                                <a href="{{i.url}}" target="_blank" class="download">Batafsil
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                         height="16" fill="currentColor" class="bi bi-arrow-right"
+                                         viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="imgbox">
+                                <a href="#">
+                                    <img src="{{i.imag.url}}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{% static 'js/jQuery.js' %}"></script>
+<script src="{% static 'slick/slick.js' %}" type="text/javascript " charset="utf-8"></script>
+<script src="js/main1.js"></script>
+<script src="js/section.js"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+{% endblock %}

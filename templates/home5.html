@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block hudud %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="guvohnoma">
+    <div class="container">
+        <h1>Guvohnomani tekshirish</h1>
+        <div class="guvoh">
+            <div class="form">
+                <form class="input_gurup">
+                    <input type="text" id="fname" name="fname" style="background: #F5F8FA;"
+                           placeholder="Guvohnoma raqami">
+                    {% if user.is_authenticated %}
+                    <button id="myBtn" type="button" style="background: #06989D; color: #fff;">Tekshirish</button>
+                    {% else %}
+                    <button class="download user-kirish" type="button" style="background: #06989D; color: #fff;">Ro'yxatdan o'tish</button>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="spinner d-none" id="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <div class="big_col d-none" id="myModal">
+                <div class="col">
+                    <h1 style="padding:0px 0 12px;">Guvohnoma</h1>
+                    <div class="card3">
+                        <div class="imgbox">
+                            <a href="#">
+                                <img src="{% static 'img/image 4.png' %}" alt="">
+                            </a>
+                        </div>
+                        <div class="textbox1">
+                            <p>Guvohnoma raqaqmi: <b> №O‘Q 00000 </b></p>
+                            <p> Berilgan sanasi:<b> 25.05.2021</b></p>
+                            <p>Mualliflar:<b> Jumanov Erkin Xolboyevich</b></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h1 style="padding:90px 0 12px;">O‘quv qo‘llanmalar</h1>
+                    <div class="card1">
+                        <div class="textbox">
+                            <p>O‘quv qo‘llanma</p>
+                            <h2>Elektr hisoblagichlarni ekspluatatsiya qiluvchi elektromontyor</h2>
+                            <a href="#" class="download"> <img src="{% static 'icons/Arrow - Down.svg' %}" alt="">Yuklab olish
+                            </a>
+                        </div>
+                        <div class="imgbox">
+                            <a href="#">
+                                <img src="{% static 'img/chilangar.png' %}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+<script src="{% static 'js/section.js' %}"></script>
+<script src="{% static 'js/home6.js' %}"></script>
+<script src="{% static 'js/guvohnoma.js' %}"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+{% endblock %}

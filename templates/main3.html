@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block hudud %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="general">
+    <div class="container">
+        <div class="sectionHeader">
+            <div class="textbox">
+                <h1>O‘qitish materiallari to‘plami</h1>
+                <div class="search">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.67624 1.66666C5.25265 1.66666 1.66663 5.17348 1.66663 9.49937C1.66663 13.8253 5.25265 17.3321 9.67624 17.3321C11.5682 17.3321 13.3069 16.6906 14.6774 15.6179L17.2808 18.1572L17.3501 18.2155C17.5918 18.3904 17.9345 18.3705 18.1532 18.1561C18.3938 17.9202 18.3933 17.5383 18.1521 17.303L15.5793 14.7936C16.8874 13.3995 17.6859 11.5406 17.6859 9.49937C17.6859 5.17348 14.0998 1.66666 9.67624 1.66666ZM9.67625 2.87311C13.4185 2.87311 16.4522 5.83979 16.4522 9.49937C16.4522 13.159 13.4185 16.1256 9.67625 16.1256C5.93401 16.1256 2.90033 13.159 2.90033 9.49937C2.90033 5.83979 5.93401 2.87311 9.67625 2.87311Z"
+                            fill="currentColor" />
+                    </svg>
+                    <form action="">
+                        <input type="text" placeholder="O‘quv materiallari bo’yicha izlash">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="sectionBody">
+            <div class="left">
+                <div class="buttonBox" id="buttonBox">
+                    <button class="btnLeft active" value="Barcha bilim sohasi">Barchasi</button>
+                    {% for bilim in bilim_soxa %}
+                    <button class="btnLeft" id="bilim_soxa" value="{{bilim.name}}">{{bilim.name}}</button>
+                    {% endfor %}
+                </div>
+                <a href="#" class="totop">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M11.1771 20.2928C11.2321 20.6922 11.5795 21 11.9999 21C12.4585 21 12.8302 20.6337 12.8302 20.1818L12.8302 5.80007L18.0813 10.9953L18.1743 11.0747C18.4989 11.313 18.9602 11.2876 19.2556 10.9977C19.5805 10.6788 19.5816 10.1608 19.258 9.84062L12.5996 3.25226C12.5614 3.21304 12.5194 3.17756 12.474 3.14642C12.1498 2.92336 11.6999 2.95478 11.4111 3.24067L4.74193 9.84067L4.66174 9.9326C4.42125 10.2534 4.44905 10.7079 4.74446 10.9977C5.06942 11.3166 5.59515 11.3155 5.91871 10.9953L11.1696 5.79877L11.1696 20.1818L11.1771 20.2928Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+            </div>
+            <div class="right  main3">
+                <div class="rightHeader">
+                    <div class="text">
+                        <h1>O‘qitish materiallari to‘plami</h1>
+                        <span id="main2infoNum">{{uquv_materail|length}}</span>
+                    </div>
+                    <div class="selects-box">
+                        <div class="select" data-select>
+                            <div class="select__selected-item" data-selected="true">
+                                <div class="select__selected-title" id="t_soxa" data-selected-title
+                                    data-selected="true">
+                                    Ta’lim sohasi
+                                </div>
+                                <svg class="select__arrow" data-arrow data-selected="true" width="20" height="20"
+                                    viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M2.82734 5.16393C3.02214 4.96523 3.32696 4.94716 3.54177 5.10974L3.60331 5.16393L7.99996 9.64894L12.3966 5.16393C12.5914 4.96523 12.8962 4.94716 13.111 5.10974L13.1726 5.16393C13.3674 5.36264 13.3851 5.67358 13.2257 5.8927L13.1726 5.95547L8.38795 10.8361C8.19315 11.0348 7.88832 11.0528 7.67351 10.8903L7.61197 10.8361L2.82734 5.95547C2.61306 5.73689 2.61306 5.38251 2.82734 5.16393Z"
+                                        fill="currentColor" />
+                                </svg>
+                            </div>
+                            <div class="select__list" id="soxa" data-list>
+                                {% for soha in talim_soxa %}
+                                <div class="select__list-item" id="sox" data-item="true">{{soha.name}}</div>
+                                {% endfor %}
+                            </div>
+                            <input class="select__input" type="text" data-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="id_basic">
+                    {% for i in uquv_materail %}
+                    <div class="col">
+                        <div class="card1">
+                            <div class="textbox">
+                                <p>{{i.tSoxa_id}}</p>
+                                <a href="{% url 'basic_app:home3' i.id %}" class="h2">{{i.name}}</a>
+                                {% if user.is_authenticated %}
+                                <a href="{{ i.prof_stand.url }}" target="_blank" class="download"> <img
+                                        src="{% static 'icons/Arrow - Down.svg' %}" alt="">
+                                    Yuklab olish
+                                </a>
+                                {% else %}
+                                <button class="download user-kirish">
+                                    Ro'yxatdan o'tish
+                                </button>
+                                {% endif %}
+                            </div>
+                            <div class="imgbox">
+                                <a href="{% url 'basic_app:home3' i.id %}">
+                                    {% if i.img %}
+                                    <img src="{{i.img.url}}" alt="">
+                                    {% else %}
+                                    <img src="{% static 'img/no_photo.png' %}" alt="">
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="more">
+                    <button class="more1">
+                        Ko'proq ko'rsatish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="{% static 'slick/slick.js' %}" type="text/javascript " charset="utf-8"></script>
+<script src="{% static 'js/section.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/main1.js' %}"></script>
+<script src="{% static 'js/ajax_main3.js' %}"></script>
+<script src="{% static 'js/ajax_sign_up.js' %}"></script>
+{% endblock %}
